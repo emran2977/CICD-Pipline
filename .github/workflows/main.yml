@@ -1,4 +1,4 @@
-name: My First CI
+name: CI + CD to AWS
 
 on:
   push:
@@ -6,15 +6,21 @@ on:
       - main
 
 jobs:
-  basic-test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show OS info
-        run: |
-          uname -a
-          whoami
-          pwd
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: List files
-        run: ls -l
+      - name: SSH to AWS and run command
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.KEY }}
+          script: |
+            echo "Connected from GitHub Actions"
+            hostname
+            uptime
+
