@@ -1,0 +1,20 @@
+name: My First CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  basic-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show OS info
+        run: |
+          uname -a
+          whoami
+          pwd
+
+      - name: List files
+        run: ls -l
