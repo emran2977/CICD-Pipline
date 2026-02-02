@@ -10,21 +10,21 @@ jobs:
     name: Install nginx service on EC2
     runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout EC2
-    uses: actions/checkout@v4
+  steps:
+    - name: Checkout EC2
+      uses: actions/checkout@v4
+ 
+    - name: connect EC2 with ssh
+      uses: appleboy/ssh-action@v1.0.3
 
-  - name: connect EC2 with ssh
-    uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{secrets.EC2}}
+        username: ${{secrets.EC2_USER}}
+        key: ${{secrets.KEY}}
+        port: 22
 
-  with:
-   host: ${{secrets.EC2}}
-   username: ${{secrets.EC2_USER}}
-   key: ${{secrets.KEY}}
-   port: 22
-
-   script: |
-     sudo apt update -y
-     sudo apt install nginx -y
-     sudo systemctl restart nginx
-     sudo systemctl enable nginx
+        script: |
+          sudo apt update -y
+          sudo apt install nginx -y
+          sudo systemctl restart nginx
+          sudo systemctl enable nginx
