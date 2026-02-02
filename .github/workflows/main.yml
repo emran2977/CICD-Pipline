@@ -1,4 +1,4 @@
-name: CI + CD to AWS
+name: Deploy HA to EC2
 
 on:
   push:
@@ -6,21 +6,35 @@ on:
       - main
 
 jobs:
-  deploy:
+  install-haproxy:
+    name: Install HAProxy on Remote EC2
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: SSH to AWS and run command
+      - name: SSH into EC2 and Install HAProxy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2 }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.KEY }}
+          port: 22
+          script_stop: true  # Jodi kono command fail kore, workflow ekhane thambe
+          debug: true       # Eita apnake logs-e purapuri output dekhabe
           script: |
-            echo "Connected from GitHub Actions"
-            hostname
-            uptime
-
+            echo "Starting HAProxy Installation..."
+            sudo apt-get update -y
+            sudo apt-get install haproxy -y
+            
+            # Check if HAProxy is installed
+            haproxy -v
+            
+            # Start and Enable HAProxy
+            sudo systemctl start haproxy
+            sudo systemctl enable haproxy
+            
+            # Final Status Check
+            sudo systemctl status haproxy --no-pager
+            echo "Installation Successful!"
