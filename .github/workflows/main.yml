@@ -4,22 +4,23 @@ on:
  push:
   branches:
     - test
-    
- jobs:
+
+jobs:
   deploy: 
     name: This is for file
     runs-on: ubuntu-latest
 
     steps: 
-      - name: Checkout
-       uses: actions/checkout@v4
-      - name: ssh connect
-        uses: appleboy/ssh-action@v1.0.3
-        with: 
-        host: ${{ secrets.EC2 }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.KEY }}
-        port: 22
-        script: |
-          cd /etc/
-          sudo touch test.conf
+       - name: Checkout
+         uses: actions/checkout@v4
+         
+       - name: ssh connect
+         uses: appleboy/ssh-action@v1.0.3
+         with: 
+          host: ${{ secrets.EC2 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          script: |
+             sudo apt install curl -y
+          
