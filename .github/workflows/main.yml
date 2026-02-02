@@ -10,7 +10,7 @@ jobs:
     name: Install nginx service on EC2
     runs-on: ubuntu-latest
 
-     steps:
+    steps:
        - name: Checkout EC2
          uses: actions/checkout@v4
  
