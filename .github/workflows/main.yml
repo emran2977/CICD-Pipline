@@ -24,17 +24,17 @@ jobs:
           script_stop: true  # Jodi kono command fail kore, workflow ekhane thambe
           debug: true       # Eita apnake logs-e purapuri output dekhabe
           script: |
-            echo "Starting HAProxy Installation..."
+            echo "Starting Nginx Installation..."
             sudo apt-get update -y
-            sudo apt-get install haproxy -y
+            sudo apt-get install nginx -y
             
             # Check if HAProxy is installed
-            haproxy -v
+            # haproxy -v
             
             # Start and Enable HAProxy
-            sudo systemctl start haproxy
-            sudo systemctl enable haproxy
+            sudo systemctl start nginx
+            sudo systemctl enable nginx
             
             # Final Status Check
-            sudo systemctl status haproxy --no-pager
-            echo "Installation Successful!"
+            # sudo systemctl status haproxy --no-pager
+            # echo "Installation Successful!"
