@@ -19,5 +19,5 @@ on:
         key: ${{secrets.KEY}}
         port: 22
         script: |
-          cd /etc/
-          touch test.conf
+          sudo cd /etc/
+          sudo touch test.conf
