@@ -1,4 +1,4 @@
-name: This is my cicd pipline
+name: This is my cicd 
 
 on:  
  push:
