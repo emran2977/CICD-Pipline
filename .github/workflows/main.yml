@@ -1,9 +1,9 @@
-Name: Nginx install on EC2
+name: Nginx install on EC2
 
 on:
   push:
      branches:
-         -main
+         - main
 
 jobs:
   deploy:
