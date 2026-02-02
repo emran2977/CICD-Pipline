@@ -3,6 +3,7 @@ on:
  push:
   branches:
     - main
+    
  jobs:
   deploy: 
     name: This is for file
@@ -14,9 +15,9 @@ on:
      - name: ssh connect
        uses: appleboy/ssh-action@v1.0.3
        with: 
-        host: ${{secrets.EC2}}
-        username: ${{secrets.EC2_USER}}
-        key: ${{secrets.KEY}}
+        host: ${{ secrets.EC2 }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.KEY }}
         port: 22
         script: |
           sudo cd /etc/
