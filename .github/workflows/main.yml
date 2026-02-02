@@ -1,27 +1,25 @@
-name: Nginx install on EC2
+name: This is my cicd pipline
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
+on:  
+ push:
+  branches:
+    - test
+    
+ jobs:
+  deploy: 
+    name: This is for file
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install nginx on EC2 via SSH
+    steps: 
+      - name: Checkout
+       uses: actions/checkout@v4
+      - name: ssh connect
         uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2 }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.KEY }}
-          port: 22
-          script: |
-            sudo apt update -y
-            sudo apt install -y nginx
-            sudo systemctl enable nginx
-            sudo systemctl restart nginx
+        with: 
+        host: ${{ secrets.EC2 }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: |
+          cd /etc/
+          sudo touch test.conf
