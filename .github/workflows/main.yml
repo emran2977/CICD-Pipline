@@ -6,7 +6,7 @@ on:
          - main
 
 jobs:
-  deploy:
+  install-nginx:
     name: Install nginx service on EC2
     runs-on: ubuntu-latest
 
@@ -16,13 +16,13 @@ jobs:
  
        - name: connect EC2 with ssh
          uses: appleboy/ssh-action@v1.0.3
-         with:
+         with: 
          host: ${{secrets.EC2}}
          username: ${{secrets.EC2_USER}}
          key: ${{secrets.KEY}}
          port: 22
 
-        script: |
+         script: |
           sudo apt update -y
           sudo apt install nginx -y
           sudo systemctl restart nginx
