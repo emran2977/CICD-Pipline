@@ -2,7 +2,7 @@ name: This is my cicd pipline
 on:  
  push:
   branches:
-    - main
+    - test
     
  jobs:
   deploy: 
