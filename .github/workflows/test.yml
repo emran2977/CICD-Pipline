@@ -1,11 +1,10 @@
 name: This is my cicd pipline
 on:  
- push:
-  branches:
-    - test
-    
- jobs:
-  deploy: 
+  push:
+    branches:
+    - test 
+jobs:
+   deploy: 
     name: This is for file
     runs-on: ubuntu-latest
 
