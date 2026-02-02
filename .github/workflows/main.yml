@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
 steps:
-  -name: checkout EC2
-   uses: actions/checkout@v4
+  - name: Checkout EC2
+    uses: actions/checkout@v4
 
-  -name: connect EC2 with ssh
-   uses: appleboy/ssh-action@v1.0.3
+  - name: connect EC2 with ssh
+    uses: appleboy/ssh-action@v1.0.3
 
   with:
    host: ${{secrets.EC2}}
