@@ -1,40 +1,30 @@
-name: Deploy HAproxy to EC2
+Name: Nginx install on EC2
 
 on:
   push:
-    branches:
-      - main
+     branches:
+         -main
 
 jobs:
-  install-haproxy:
-    name: Install HAProxy on Remote EC2
+  deploy:
+    name: Install nginx service on EC2
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+steps:
+  -name: checkout EC2
+   uses: actions/checkout@v4
 
-      - name: SSH into EC2 and Install HAProxy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2 }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.KEY }}
-          port: 22
-          script_stop: true  # Jodi kono command fail kore, workflow ekhane thambe
-          debug: true       # Eita apnake logs-e purapuri output dekhabe
-          script: |
-            echo "Starting Nginx Installation..."
-            sudo apt-get update -y
-            sudo apt-get install nginx -y
-            
-            # Check if HAProxy is installed
-            # haproxy -v
-            
-            # Start and Enable HAProxy
-            sudo systemctl start nginx
-            sudo systemctl enable nginx
-            
-            # Final Status Check
-            # sudo systemctl status haproxy --no-pager
-            # echo "Installation Successful!"
+  -name: connect EC2 with ssh
+   uses: appleboy/ssh-action@v1.0.3
+
+  with:
+   host: ${{secrets.EC2}}
+   username: ${{secrets.EC2_USER}}
+   key: ${{secrets.KEY}}
+   port: 22
+
+   script: |
+     sudo apt update -y
+     sudo apt install nginx -y
+     sudo systemctl restart nginx
+     sudo systemctl enable nginx
